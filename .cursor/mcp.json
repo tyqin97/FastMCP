@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "main-server": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--project",
+        "c:/Users/Teow/Desktop/AI-Project/FastMCP",
+        "--with", "fastmcp",
+        "--with", "python-dotenv",
+        "--with", "openai",
+        "fastmcp",
+        "run",
+        "c:/Users/Teow/Desktop/AI-Project/FastMCP/server.py:mcp"
+      ]
+    }
+  }
+}
