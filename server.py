@@ -3,7 +3,7 @@ from fastmcp.prompts import Message
 from dotenv import load_dotenv
 from functools import lru_cache
 
-import os, random, json, openai, asyncio,sqlite3
+import os, random, json, openai, asyncio,sqlite3, requests
 
 load_dotenv(os.path.join(os.path.dirname(os.path.abspath(__file__)), "secrets", ".env"))
 
@@ -79,6 +79,21 @@ async def ask_llm(prompt: str, ctx: Context):
         )
 
     return resp.output_text
+
+@mcp.tool
+def get_all_football_country() -> dict:
+    url = "https://api.football-data.org/v4/areas"
+    result = requests.get(url)
+    result.raise_for_status()
+    return result.json()
+
+@mcp.tool
+def get_football_by_id(id: str) -> dict:
+    """Get a football area by ID. Pass the area id as a string (e.g. \"2072\")."""
+    url = f"https://api.football-data.org/v4/areas/{id}"
+    result = requests.get(url)
+    result.raise_for_status()
+    return result.json()
 
 if __name__ == "__main__":
     mcp.run()
